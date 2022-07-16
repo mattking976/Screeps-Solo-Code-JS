@@ -1,6 +1,6 @@
 //main module should be very little here that actually controls anything
 var roleHarvester = require('role.harvester');
-var roleUpgrader = require('role.harvester');
+var roleUpgrader = require('role.upgrader');
 
 module.exports.loop = function () {
 	// Your code goes here
