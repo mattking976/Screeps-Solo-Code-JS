@@ -4,6 +4,7 @@ const { filter } = require("lodash");
 var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
+const roleDefender = require("./role.defender");
 
 //setting base minimum numbers.
 var minHarvesters = 10;
@@ -37,6 +38,10 @@ module.exports.loop = function () {
 		creep.memory.role == 'builder');
 	console.log('Builders #: ' + builders.length);
 
+	var defenders = _.filter(Game.creeps, (creep) => 
+	creep.memory.role == 'dDrone');
+	console.log('Defenders #: ' + defenders.length);
+
 	//number of available energy units across the owned rooms.
 	for(var name in Game.rooms){
 		console.log('Room ' + name+ ' has ' + 
@@ -57,6 +62,12 @@ module.exports.loop = function () {
 		var newName = 'Builder' + Game.time;
 		Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, CARRY, MOVE], newName, 
 			{memory: {role: 'builder'}});
+	}
+	else if(defenders.length < minDefenders){
+		var newName = 'Defender' + Game.time;
+		//order of parts is important in combat
+		Game.spawns['Spawn1'].spawnCreep([TOUGH, MOVE, ATTACK, RANGED_ATTACK], newName, 
+			{memory: {role: 'dDrone'}});
 	}
 
 	if(Game.spawns['Spawn1'].spawning){
@@ -79,6 +90,9 @@ module.exports.loop = function () {
         }
 		if(creep.memory.role == 'builder'){
 			roleBuilder.run(creep);
+		}
+		if(creep.memory.role == 'dDrone'){
+			roleDefender.run(creep);
 		}
     }
 }
