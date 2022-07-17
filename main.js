@@ -3,6 +3,11 @@ var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 
+//setting base minimum numbers.
+var minHarvesters = 10;
+var minUpgraders = 10;
+var minBuilders = 1;
+
 module.exports.loop = function () {
 	// Your code goes here
 
@@ -35,25 +40,17 @@ module.exports.loop = function () {
 			Game.rooms[name].energyAvailable + ' energy');
 	}
 
-	if(harvesters.length < 2) {
+	if(harvesters.length < minHarvesters) {
 		var newName = 'Harvester' + Game.time;
 		Game.spawns['Spawn1'].spawnCreep([WORK, WORK, CARRY, MOVE], newName, 
 			{memory: {role: 'harvester'}});
 	}
-
-	if(upgraders.length < 2 && harvesters.length > 0){
+	else if(upgraders.length < minUpgraders){
 		var newName = 'Upgrader' + Game.time;
 		Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE], newName, 
 			{memory: {role: 'upgrader'}});
 	}
-
-	if(harvesters.length == 0){
-		var newName = 'Harvester' + Game.time;
-		Game.spawns['Spawn1'].spawnCreep([WORK, WORK, CARRY, MOVE], newName, 
-			{memory: {role: 'harvester'}});
-	}
-
-	if(harvesters.length > 0){
+	else if(builders.length < minBuilders){
 		var newName = 'Builder' + Game.time;
 		Game.spawns['Spawn1'].spawnCreep([WORK, WORK, CARRY, MOVE], newName, 
 			{memory: {role: 'builder'}});
