@@ -1,3 +1,5 @@
+const { filter } = require("lodash");
+
 //main module should be very little here that actually controls anything
 var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
