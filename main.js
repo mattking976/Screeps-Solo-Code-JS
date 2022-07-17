@@ -8,7 +8,7 @@ var roleBuilder = require('role.builder');
 //setting base minimum numbers.
 var minHarvesters = 10;
 var minUpgraders = 10;
-var minBuilders = 1;
+var minBuilders = 3;
 
 module.exports.loop = function () {
 	// Your code goes here
