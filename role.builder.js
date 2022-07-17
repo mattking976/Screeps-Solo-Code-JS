@@ -1,3 +1,5 @@
+const { filter } = require("lodash");
+
 //builder code for creating structures.
 var roleBuilder = {
     /** @param {Creep} creep **/
