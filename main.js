@@ -9,6 +9,7 @@ var roleBuilder = require('role.builder');
 var minHarvesters = 10;
 var minUpgraders = 10;
 var minBuilders = 3;
+var minDefenders = 5;
 
 module.exports.loop = function () {
 	// Your code goes here
@@ -54,7 +55,7 @@ module.exports.loop = function () {
 	}
 	else if(builders.length < minBuilders){
 		var newName = 'Builder' + Game.time;
-		Game.spawns['Spawn1'].spawnCreep([WORK, WORK, CARRY, MOVE], newName, 
+		Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, CARRY, MOVE], newName, 
 			{memory: {role: 'builder'}});
 	}
 
