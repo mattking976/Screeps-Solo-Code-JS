@@ -7,8 +7,8 @@ var roleBuilder = require('role.builder');
 const roleDefender = require("./role.defender");
 
 //setting base minimum numbers.
-var minHarvesters = 10;
-var minUpgraders = 10;
+var minHarvesters = 5;
+var minUpgraders = 5;
 var minBuilders = 3;
 var minDefenders = 5;
 
@@ -50,12 +50,12 @@ module.exports.loop = function () {
 
 	if(harvesters.length < minHarvesters) {
 		var newName = 'Harvester' + Game.time;
-		Game.spawns['Spawn1'].spawnCreep([WORK, WORK, CARRY, MOVE], newName, 
+		Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, CARRY, MOVE], newName, 
 			{memory: {role: 'harvester'}});
 	}
 	else if(upgraders.length < minUpgraders){
 		var newName = 'Upgrader' + Game.time;
-		Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE], newName, 
+		Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, CARRY, MOVE], newName, 
 			{memory: {role: 'upgrader'}});
 	}
 	else if(builders.length < minBuilders){
