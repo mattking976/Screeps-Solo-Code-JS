@@ -25,6 +25,11 @@ var roleHarvester = {
                     creep.moveTo(targets[0]);
                 }
             }
+            else if(targets.length == 0 || creep.store.getFreeCapacity() != 0){
+                if(creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(creep.room.controller);
+                }
+            }
         }
     }
 };

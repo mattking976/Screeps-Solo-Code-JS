@@ -1,5 +1,3 @@
-const { filter } = require("lodash");
-
 var roleUpgrader = {
 
     /** @param {Creep} creep **/
