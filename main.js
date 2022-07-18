@@ -1,10 +1,10 @@
 const { filter } = require("lodash");
 
 //main module should be very little here that actually controls anything
-var roleHarvester = require('role.harvester');
-var roleUpgrader = require('role.upgrader');
-var roleBuilder = require('role.builder');
-const roleDefender = require("./role.defender");
+const roleHarvester = require('role.harvester');
+const roleUpgrader = require('role.upgrader');
+const roleBuilder = require('role.builder');
+const roleDefender = require("role.defender");
 
 //setting base minimum numbers.
 var minHarvesters = 5;
