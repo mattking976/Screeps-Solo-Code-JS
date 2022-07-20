@@ -26,6 +26,10 @@ var roleHauler = {
             if(creep.transfer(closestTarget, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE){
                 creep.moveTo(closestTarget);
             }
+            else{
+                //keeping haulers out of harms way kinda
+                creep.moveTo(Game.spawns['Spawn1'].pos.x + 5, Game.spawns['Spawn1'].pos.y + 5);
+            }
         }
     }
 }
