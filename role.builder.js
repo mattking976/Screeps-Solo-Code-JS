@@ -26,7 +26,7 @@ var roleBuilder = {
             });
 
             const closestDroppedEnergy = creep.pos.findClosestByRange(droppedEnergy);
-            if(creep.harvest(closestDroppedEnergy) == ERR_NOT_IN_RANGE) {
+            if(creep.pickup(closestDroppedEnergy) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(closestDroppedEnergy);
             }
 	    }
