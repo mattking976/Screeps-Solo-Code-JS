@@ -10,7 +10,7 @@ const roleHauler = require("role.haulers");
 var minHarvesters = 3;
 var minHaulers = 3;
 var minUpgraders = 3;
-var minBuilders = 3;
+var minBuilders = 5;
 
 module.exports.loop = function () {
 	// Your code goes here

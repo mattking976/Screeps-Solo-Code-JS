@@ -13,11 +13,18 @@ var roleHauler = {
             }
         }
         else{
-            const spawns = creep.room.find(FIND_MY_SPAWNS);
-            const closestSpawns = creep.pos.findClosestByRange(spawns);
+            const targets = creep.room.find(FIND_MY_STRUCTURES, {
+                filter: (Structure) => {
+                    return (Structure.structureType == STRUCTURE_SPAWN ||
+                        Structure.structureType == STRUCTURE_EXTENSION ||
+                        Structure.structureType == STRUCTURE_TOWER) && 
+                        Structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+                    }
+            });
+            const closestTarget = creep.pos.findClosestByRange(targets);
 
-            if(creep.transfer(closestSpawns, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE){
-                creep.moveTo(closestSpawns);
+            if(creep.transfer(closestTarget, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE){
+                creep.moveTo(closestTarget);
             }
         }
     }
