@@ -13,6 +13,15 @@ var roleHauler = {
             }
         }
         else{
+            var allSpawns = creep.room.find(FIND_MY_STRUCTURES, {
+                filter: (Structure) => {
+                    return (Structure.structureType == StructureSpawn) && 
+                    Structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+                }
+            });
+
+            var closestSpawn = creep.pos.findClosestByRange(allSpawns);
+
             const targets = creep.room.find(FIND_STRUCTURES, {
                 filter: (Structure) => {
                     return (Structure.structureType == STRUCTURE_SPAWN ||
@@ -24,7 +33,10 @@ var roleHauler = {
             });
             const closestTarget = creep.pos.findClosestByRange(targets);
 
-            if(creep.transfer(closestTarget, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE){
+            if(creep.transfer(closestSpawn, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE){
+                creep.moveTo(closestSpawn);
+            }
+            else if(creep.transfer(closestTarget, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE){
                 creep.moveTo(closestTarget);
             }
             else{
