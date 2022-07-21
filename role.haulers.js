@@ -13,11 +13,12 @@ var roleHauler = {
             }
         }
         else{
-            const targets = creep.room.find(FIND_MY_STRUCTURES, {
+            const targets = creep.room.find(FIND_STRUCTURES, {
                 filter: (Structure) => {
                     return (Structure.structureType == STRUCTURE_SPAWN ||
                         Structure.structureType == STRUCTURE_EXTENSION ||
-                        Structure.structureType == STRUCTURE_TOWER) && 
+                        Structure.structureType == STRUCTURE_TOWER ||
+                        Structure.structureType == STRUCTURE_CONTAINER) && 
                         Structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
                     }
             });
