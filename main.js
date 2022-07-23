@@ -80,7 +80,7 @@ module.exports.loop = function () {
             {align: 'left', opacity: 0.8});
 	}
 
-	var towers = Game.rooms.find(FIND_MY_STRUCTURES, {
+	var towers = _.find(FIND_MY_STRUCTURES, {
 		filter: (Structure) => {
 			return (
 				Structure.structureType == STRUCTURE_TOWER

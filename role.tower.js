@@ -6,7 +6,7 @@ var roleTower = {
     /**  **/
     run: function() {
 
-        const towers = Game.rooms.find(FIND_MY_STRUCTURES, {
+        const towers = _.find(FIND_MY_STRUCTURES, {
             filter: (Structure) => {
                 return (
                     Structure.structureType == STRUCTURE_TOWER
