@@ -79,20 +79,8 @@ module.exports.loop = function () {
             Game.spawns['Spawn1'].pos.y,
             {align: 'left', opacity: 0.8});
 	}
-
-	var towers = _.find(FIND_MY_STRUCTURES, {
-		filter: (Structure) => {
-			return (
-				Structure.structureType == STRUCTURE_TOWER
-			)
-		}
-	});
-
-	for(var tower in towers)
-	{
-		roleTower.run();
-		continue
-	}
+	
+	roleTower.run();
 
 	//assigning role ai to creeps.
 	for(var name in Game.creeps) {

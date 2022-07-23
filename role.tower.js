@@ -6,27 +6,23 @@ var roleTower = {
     /**  **/
     run: function() {
 
-        const towers = _.find(FIND_MY_STRUCTURES, {
-            filter: (Structure) => {
-                return (
-                    Structure.structureType == STRUCTURE_TOWER
-                )
-            }
-        });
+        var towers = _.filter(Game.structures, s => s.structureType == STRUCTURE_TOWER);
 
-       for(tower in towers){
-            var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
+        console.log(towers);
+        for (let index = 0; index < towers.length; index++) {
+            var closestDamagedStructure = towers[index].pos.findClosestByRange(FIND_STRUCTURES, {
                 filter: (structure) => structure.hits < structure.hitsMax
             });
+            
             if(closestDamagedStructure) {
-                tower.repair(closestDamagedStructure);
+                towers[index].repair(closestDamagedStructure);
             }
 
-            var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+            var closestHostile = towers[index].pos.findClosestByRange(FIND_HOSTILE_CREEPS);
             if(closestHostile) {
-                tower.attack(closestHostile);
+                towers[index].attack(closestHostile);
             }
-       }
+        }
     }
 };
 
