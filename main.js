@@ -5,6 +5,7 @@ var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 const roleHauler = require("role.haulers");
+const roleTower = require("role.tower");
 
 //setting base minimum numbers.
 var minHarvesters = 3;
@@ -77,6 +78,20 @@ module.exports.loop = function () {
             Game.spawns['Spawn1'].pos.x + 1,
             Game.spawns['Spawn1'].pos.y,
             {align: 'left', opacity: 0.8});
+	}
+
+	var towers = Game.rooms.find(FIND_MY_STRUCTURES, {
+		filter: (Structure) => {
+			return (
+				Structure.structureType == STRUCTURE_TOWER
+			)
+		}
+	});
+
+	for(var tower in towers)
+	{
+		roleTower.run();
+		continue
 	}
 
 	//assigning role ai to creeps.
