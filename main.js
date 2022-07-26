@@ -1,17 +1,17 @@
 const { filter } = require("lodash");
 
 //main module should be very little here that actually controls anything
-const roleHarvester = require('role.harvester');
-const roleUpgrader = require('role.upgrader');
-const roleBuilder = require('role.builder');
-const roleDefender = require("role.defender");
-const buildBasic = require("build.basic");
+var roleHarvester = require('role.harvester');
+var roleUpgrader = require('role.upgrader');
+var roleBuilder = require('role.builder');
+const roleHauler = require("role.haulers");
+const roleTower = require("role.tower");
 
 //setting base minimum numbers.
-var minHarvesters = 5;
-var minUpgraders = 5;
-var minBuilders = 3;
-var minDefenders = 5;
+var minHarvesters = 3;
+var minHaulers = 3;
+var minUpgraders = 3;
+var minBuilders = 5;
 
 module.exports.loop = function () {
 	// Your code goes here
@@ -29,6 +29,11 @@ module.exports.loop = function () {
 		creep.memory.role == 'harvester');
 	console.log('Harvesters #: ' + harvesters.length);
 
+	//number of haulers in play
+	var haulers = _.filter(Game.creeps, (creep) => 
+		creep.memory.role == 'hauler');
+	console.log('Haulers #: ' + haulers.length);
+
 	//number of upgraders in play
 	var upgraders = _.filter(Game.creeps, (creep) => 
 		creep.memory.role == 'upgrader');
@@ -39,10 +44,6 @@ module.exports.loop = function () {
 		creep.memory.role == 'builder');
 	console.log('Builders #: ' + builders.length);
 
-	var defenders = _.filter(Game.creeps, (creep) => 
-	creep.memory.role == 'dDrone');
-	console.log('Defenders #: ' + defenders.length);
-
 	//number of available energy units across the owned rooms.
 	for(var name in Game.rooms){
 		console.log('Room ' + name+ ' has ' + 
@@ -50,25 +51,24 @@ module.exports.loop = function () {
 	}
 
 	if(harvesters.length < minHarvesters) {
-		var newName = 'Harvester' + Game.time;
-		Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, CARRY, MOVE], newName, 
+		var newName = 'Harvester' + Game.time.toString();
+		Game.spawns['Spawn1'].spawnCreep([WORK, WORK, MOVE], newName, 
 			{memory: {role: 'harvester'}});
 	}
+	else if(haulers.length < minHaulers){
+		var newName = 'Hauler' + Game.time.toString();
+		Game.spawns['Spawn1'].spawnCreep([CARRY, CARRY, MOVE, MOVE], newName, 
+			{memory: {role: 'hauler'}});
+	}
 	else if(upgraders.length < minUpgraders){
-		var newName = 'Upgrader' + Game.time;
-		Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, CARRY, MOVE], newName, 
+		var newName = 'Upgrader' + Game.time.toString();
+		Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, MOVE], newName, 
 			{memory: {role: 'upgrader'}});
 	}
 	else if(builders.length < minBuilders){
-		var newName = 'Builder' + Game.time;
-		Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, CARRY, MOVE], newName, 
+		var newName = 'Builder' + Game.time.toString();
+		Game.spawns['Spawn1'].spawnCreep([WORK, WORK, CARRY, MOVE], newName, 
 			{memory: {role: 'builder'}});
-	}
-	else if(defenders.length < minDefenders){
-		var newName = 'Defender' + Game.time;
-		//order of parts is important in combat
-		Game.spawns['Spawn1'].spawnCreep([TOUGH, MOVE, ATTACK, RANGED_ATTACK], newName, 
-			{memory: {role: 'dDrone'}});
 	}
 
 	if(Game.spawns['Spawn1'].spawning){
@@ -79,23 +79,28 @@ module.exports.loop = function () {
             Game.spawns['Spawn1'].pos.y,
             {align: 'left', opacity: 0.8});
 	}
+	
+	roleTower.run();
 
 	//assigning role ai to creeps.
 	for(var name in Game.creeps) {
         var creep = Game.creeps[name];
         if(creep.memory.role == 'harvester') {
             roleHarvester.run(creep);
+			continue
         }
         if(creep.memory.role == 'upgrader') {
             roleUpgrader.run(creep);
+		    continue
         }
 		if(creep.memory.role == 'builder'){
 			roleBuilder.run(creep);
+			continue
 		}
-		if(creep.memory.role == 'dDrone'){
-			roleDefender.run(creep);
+		if(creep.memory.role == 'hauler')
+		{
+			roleHauler.run(creep);
+			continue
 		}
     }
-
-	buildBasic.run();
 }
