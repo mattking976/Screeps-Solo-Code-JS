@@ -5,7 +5,7 @@ const roleHarvester = require('role.harvester');
 const roleUpgrader = require('role.upgrader');
 const roleBuilder = require('role.builder');
 const roleDefender = require("role.defender");
-const buildBasic = require("./build.basic");
+const buildBasic = require("build.basic");
 
 //setting base minimum numbers.
 var minHarvesters = 5;
