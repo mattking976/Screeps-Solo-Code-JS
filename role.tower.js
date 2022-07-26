@@ -8,7 +8,6 @@ var roleTower = {
 
         var towers = _.filter(Game.structures, s => s.structureType == STRUCTURE_TOWER);
 
-        console.log(towers);
         for (let index = 0; index < towers.length; index++) {
             var closestDamagedStructure = towers[index].pos.findClosestByRange(FIND_STRUCTURES, {
                 filter: (structure) => structure.hits < structure.hitsMax
