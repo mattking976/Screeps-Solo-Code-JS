@@ -1,12 +1,12 @@
 const { filter } = require("lodash");
 
 //main module should be very little here that actually controls anything
-var roleHarvester = require('role.harvester');
-var roleUpgrader = require('role.upgrader');
-var roleBuilder = require('role.builder');
-const roleHauler = require("role.haulers");
-const roleTower = require("role.tower");
-const roleRepairer = require("role.repairer");
+var roleHarvester = require('./CreepRoles/role.harvester');
+var roleUpgrader = require('./CreepRoles/role.upgrader');
+var roleBuilder = require('./CreepRoles/role.builder');
+const roleHauler = require("./CreepRoles/role.hauler");
+const roleTower = require("./buldings/building.tower");
+const roleRepairer = require("./CreepRoles/role.repairer");
 
 //setting base minimum numbers.
 var minHarvesters = 3;
