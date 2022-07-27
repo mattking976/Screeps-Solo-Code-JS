@@ -7,6 +7,7 @@ var roleBuilder = require('./role.builder');
 const roleHauler = require("./role.hauler");
 const roleTower = require("./building.tower");
 const roleRepairer = require("./role.repairer");
+const roleLogistics = require("./role.logistic");
 
 //setting base minimum numbers.
 var minHarvesters = 3;
@@ -14,6 +15,7 @@ var minHaulers = 3;
 var minUpgraders = 3;
 var minBuilders = 5;
 var minRepairers = 3;
+var minLogistics = 2;
 
 module.exports.loop = function () {
 	// Your code goes here
@@ -46,9 +48,15 @@ module.exports.loop = function () {
 		creep.memory.role == 'builder');
 	console.log('Builders #: ' + builders.length);
 
+	//number of repairers in play
 	var repairers = _.filter(Game.creeps, (creep) => 
 		creep.memory.role == 'repairers');
 	console.log('Repairers #: ' + repairers.length);
+
+	//number of logistics in play
+	var logistics = _.filter(Game.creeps, (creep) => 
+		creep.memory.role == 'logistic');
+	console.log('Repairers #: ' + logistics.length);
 
 	//number of available energy units across the owned rooms.
 	for(var name in Game.rooms){
@@ -81,6 +89,12 @@ module.exports.loop = function () {
 		var newName = 'Repairer' + Game.time.toString();
 		Game.spawns['Spawn1'].spawnCreep([WORK, WORK, CARRY, MOVE], newName, 
 			{memory: {role: 'repairer'}});
+	}
+	else if(logistics.length < minLogistics)
+	{
+		var newName = 'Logistics' + Game.time.toString();
+		Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, CARRY, MOVE], newName, 
+			{memory: {role: 'logistic'}});
 	}
 
 	if(Game.spawns['Spawn1'].spawning){
@@ -117,6 +131,11 @@ module.exports.loop = function () {
 		if(creep.memory.role == 'repairer')
 		{
 			roleRepairer.run(creep);
+			continue
+		}
+		if(creep.memory.role == 'logistic')
+		{
+			roleLogistics.run(creep);
 			continue
 		}
     }
