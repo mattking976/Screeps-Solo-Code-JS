@@ -50,7 +50,7 @@ module.exports.loop = function () {
 
 	//number of repairers in play
 	var repairers = _.filter(Game.creeps, (creep) => 
-		creep.memory.role == 'repairers');
+		creep.memory.role == 'repairer');
 	console.log('Repairers #: ' + repairers.length);
 
 	//number of logistics in play
@@ -84,18 +84,19 @@ module.exports.loop = function () {
 		Game.spawns['Spawn1'].spawnCreep([WORK, WORK, CARRY, MOVE], newName, 
 			{memory: {role: 'builder'}});
 	}
-	else if(repairers.length < minRepairers)
-	{
-		var newName = 'Repairer' + Game.time.toString();
-		Game.spawns['Spawn1'].spawnCreep([WORK, WORK, CARRY, MOVE], newName, 
-			{memory: {role: 'repairer'}});
-	}
 	else if(logistics.length < minLogistics)
 	{
 		var newName = 'Logistics' + Game.time.toString();
 		Game.spawns['Spawn1'].spawnCreep([WORK, CARRY, CARRY, MOVE], newName, 
 			{memory: {role: 'logistic'}});
 	}
+	else if(repairers.length < minRepairers)
+	{
+		var newName = 'Repairer' + Game.time.toString();
+		Game.spawns['Spawn1'].spawnCreep([WORK, WORK, CARRY, MOVE], newName, 
+			{memory: {role: 'repairer'}});
+	}
+	
 
 	if(Game.spawns['Spawn1'].spawning){
 		var spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];
