@@ -56,7 +56,7 @@ module.exports.loop = function () {
 	//number of logistics in play
 	var logistics = _.filter(Game.creeps, (creep) => 
 		creep.memory.role == 'logistic');
-	console.log('Repairers #: ' + logistics.length);
+	console.log('Logistics #: ' + logistics.length);
 
 	//number of available energy units across the owned rooms.
 	for(var name in Game.rooms){
