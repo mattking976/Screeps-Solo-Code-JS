@@ -34,14 +34,19 @@ var roleLogistics = {
         else{
             for(spawn in spawns){
                 if(!(spawn.getFreeCapacity() < 0)){
-                    if(creep.transfer(spawn, RESOURCE_ENERGY)){
+                    if(creep.transfer(spawn, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE){
                         creep.moveTo(spawn);
                     }
                 }
             }
-            
+            for(tower in towers){
+                if(!tower.getFreeCapacity() < 0){
+                    if(creep.transfer(tower, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE){
+                        creep.moveTo(tower);
+                    }
+                }
+            }
         }
-
     }
 }
 
